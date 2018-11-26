@@ -227,6 +227,9 @@ func (entry *Entry) fireHooks() {
 }
 
 func (entry *Entry) write() {
+	if entry.Logger.Out == nil {
+		return
+	}
 	entry.Logger.mu.Lock()
 	defer entry.Logger.mu.Unlock()
 	serialized, err := entry.Logger.Formatter.Format(entry)
